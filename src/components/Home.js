@@ -5,20 +5,29 @@ import Subjects from './Subjects';
 import Upload from './Upload';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import SubjectsView from './SubjectsView';
+import TeachersView from './TeachersView';
 
 export default function Home() {
     const [subjects, setSubjects] = useState([]);
     const [teachers, setTeachers] = useState([]);
+    const [exams, setExams] = useState([]);
+    const [id, setId] = useState(0);
+    const [bool, setBool] = useState(false);
     const promiseTeachers = axios.get('http://localhost:4000/teachers');
     const promiseSubjects = axios.get('http://localhost:4000/subjects');
 
     useEffect(() => {
+        const promise = axios.get('http://localhost:4000/exams/subjects');
+
+        promise.then((res) => {
+            setExams(res.data);
+        });
+
         promiseSubjects.then((res) => {
             setSubjects(res.data);
         });
-    }, []);
 
-    useEffect(() => {
         promiseTeachers.then((res) => {
             setTeachers(res.data);
         });
@@ -29,9 +38,24 @@ export default function Home() {
             <Header>RepoProvas</Header>
             <Upload options={{ teachers, subjects }} />
             <div>
-                <Teachers teachers={teachers} />
-                <Subjects subjects={subjects} />
+                <Teachers
+                    teachers={teachers}
+                    setBool={setBool}
+                    exams={exams}
+                    setTeachersId={setId}
+                />
+                <Subjects
+                    subjects={subjects}
+                    setBool={setBool}
+                    exams={exams}
+                    setSubjectId={setId}
+                />
             </div>
+            {bool ? (
+                <TeachersView exams={exams} id={id} />
+            ) : (
+                <SubjectsView exams={exams} id={id} subjects={subjects} />
+            )}
         </Main>
     );
 }
