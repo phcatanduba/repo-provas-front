@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export default function Subjects({ subjects, setBool, exams, setSubjectId }) {
-    console.log(subjects);
     return (
         <SubjectsBox>
             <label htmlFor="subjects">Disciplinas:</label>
@@ -22,7 +21,7 @@ export default function Subjects({ subjects, setBool, exams, setSubjectId }) {
                                     return e.teachers.subjectsId === s.id;
                                 }).length
                             }{' '}
-                            provas)
+                            provas) - {s.quarter}* Período
                         </option>
                     );
                 })}

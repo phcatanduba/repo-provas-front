@@ -54,7 +54,7 @@ export default function Home() {
             {bool ? (
                 <TeachersView exams={exams} id={id} />
             ) : (
-                <SubjectsView exams={exams} id={id} subjects={subjects} />
+                <SubjectsView exams={exams} id={id} />
             )}
         </Main>
     );
