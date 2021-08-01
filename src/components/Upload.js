@@ -19,7 +19,10 @@ export default function Upload({ options }) {
             categoriesId,
         };
         console.log(body);
-        const promise = axios.post('http://localhost:4000/exams', body);
+        const promise = axios.post(
+            `${process.env.REACT_APP_API_BASE_URL}/exams`,
+            body
+        );
         promise.then(() => {
             alert('PROVA ENVIADA');
         });

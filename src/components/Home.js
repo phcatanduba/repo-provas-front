@@ -14,11 +14,17 @@ export default function Home() {
     const [exams, setExams] = useState([]);
     const [id, setId] = useState(0);
     const [bool, setBool] = useState(false);
-    const promiseTeachers = axios.get('http://localhost:4000/teachers');
-    const promiseSubjects = axios.get('http://localhost:4000/subjects');
+    const promiseTeachers = axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/teachers`
+    );
+    const promiseSubjects = axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/subjects`
+    );
 
     useEffect(() => {
-        const promise = axios.get('http://localhost:4000/exams/subjects');
+        const promise = axios.get(
+            `${process.env.REACT_APP_API_BASE_URL}/exams/subjects`
+        );
 
         promise.then((res) => {
             setExams(res.data);
